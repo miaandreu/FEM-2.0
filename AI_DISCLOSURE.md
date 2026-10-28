@@ -1,8 +1,6 @@
 # AI usage disclosure
 
 
-## Draft paragraph
-
 The source code, tests, and documentation of this tool were developed with the assistance of an AI coding assistant (Anthropic's Claude, used through Claude Code). The AI was used to write and refactor the TypeScript/React code, including the
 finite element routines (2D and 3D frame element stiffness matrices, coordinate transformation, assembly, boundary-condition
 handling, static condensation for hinges, Gaussian elimination), the user interface, the unit tests, and the written
