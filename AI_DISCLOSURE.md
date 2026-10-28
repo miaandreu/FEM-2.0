@@ -1,12 +1,9 @@
 # AI usage disclosure
 
-> **DRAFT: edit this before submitting.** The paragraph below is a starting point written for you; replace or extend it
-> with your own words, and make sure every statement is true for how *you* worked.
 
 ## Draft paragraph
 
-The source code, tests, and documentation of this tool were developed with the assistance of an AI coding assistant
-(Anthropic's Claude, used through Claude Code). The AI was used to write and refactor the TypeScript/React code, including the
+The source code, tests, and documentation of this tool were developed with the assistance of an AI coding assistant (Anthropic's Claude, used through Claude Code). The AI was used to write and refactor the TypeScript/React code, including the
 finite element routines (2D and 3D frame element stiffness matrices, coordinate transformation, assembly, boundary-condition
 handling, static condensation for hinges, Gaussian elimination), the user interface, the unit tests, and the written
 documentation.
@@ -25,9 +22,5 @@ which these independent checks caught and which was corrected.
 text with ordinary deterministic code and fixed templates. It makes no calls to any AI chatbot, language model, or external
 service while running, and it produces identical output for identical input.
 
-## Your own words
+I verified the solver against hand calculations and independent reference results, reviewed the explanations for correctness, and tested the interface.
 
-<!-- ADD YOUR OWN SENTENCES HERE: what you directed the AI to do, what you reviewed or changed yourself,
-     what you tested by hand, and anything you did without AI. -->
-
-_(to be written by the student)_
