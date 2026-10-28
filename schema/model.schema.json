@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "model.schema.json",
+  "title": "FEM Frame Model (schemaVersion 1)",
+  "description": "File format for models saved/loaded by the FEM learning tool. Structural rules only; value checks (positive E, no duplicate nodes, ...) are done by validateModel in src/model/validate.ts.",
+  "type": "object",
+  "required": ["schemaVersion", "dimension", "units", "nodes", "materials", "sections", "elements"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "name": { "type": "string" },
+    "dimension": { "enum": ["2D", "3D"] },
+    "units": { "enum": ["lb-in", "kip-in", "kip-ft", "N-m", "kN-m", "N-mm"] },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "x", "y"],
+        "properties": { "id": { "type": "integer", "minimum": 1 }, "x": { "type": "number" }, "y": { "type": "number" }, "z": { "type": "number", "default": 0 } }
+      }
+    },
+    "materials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "E"],
+        "properties": { "id": { "type": "integer", "minimum": 1 }, "name": { "type": "string" }, "E": { "type": "number" }, "G": { "type": "number" }, "nu": { "type": "number" } }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "A"],
+        "properties": { "id": { "type": "integer", "minimum": 1 }, "name": { "type": "string" }, "A": { "type": "number" }, "Iz": { "type": "number" }, "Iy": { "type": "number" }, "J": { "type": "number" } }
+      }
+    },
+    "elements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "nodeI", "nodeJ", "materialId", "sectionId"],
+        "properties": {
+          "id": { "type": "integer", "minimum": 1 },
+          "nodeI": { "type": "integer" },
+          "nodeJ": { "type": "integer" },
+          "materialId": { "type": "integer" },
+          "sectionId": { "type": "integer" },
+          "releaseI": { "$ref": "#/$defs/release" },
+          "releaseJ": { "$ref": "#/$defs/release" },
+          "refVector": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+          "rollAngleDeg": { "type": "number" }
+        }
+      }
+    },
+    "supports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["nodeId", "fixed", "prescribed"],
+        "properties": {
+          "nodeId": { "type": "integer" },
+          "fixed": { "type": "array", "items": { "type": "boolean" } },
+          "prescribed": { "type": "array", "items": { "type": "number" } }
+        }
+      }
+    },
+    "springs": {
+      "type": "array",
+      "items": { "type": "object", "required": ["nodeId", "dof", "k"], "properties": { "nodeId": { "type": "integer" }, "dof": { "type": "integer", "minimum": 0 }, "k": { "type": "number" } } }
+    },
+    "nodalLoads": {
+      "type": "array",
+      "items": { "type": "object", "required": ["nodeId", "dof", "value"], "properties": { "nodeId": { "type": "integer" }, "dof": { "type": "integer", "minimum": 0 }, "value": { "type": "number" } } }
+    },
+    "elementLoads": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["elementId"],
+        "properties": {
+          "elementId": { "type": "integer" },
+          "kind": { "enum": ["uniform", "linear"] },
+          "coordSys": { "enum": ["local", "global"] },
+          "axis": { "enum": ["x", "y", "z"] },
+          "w1": { "type": "number" },
+          "w2": { "type": "number" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "release": {
+      "type": "object",
+      "properties": { "rx": { "type": "boolean" }, "ry": { "type": "boolean" }, "rz": { "type": "boolean" } }
+    }
+  }
+}
