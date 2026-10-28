@@ -46,14 +46,7 @@ Built-in examples (Examples menu): **A** Logan rigid plane frame (Fig. 5-4), **B
 * [TESTING.md](TESTING.md): what is checked, with the hand calculations behind Examples B, C and D.
 * [RUBRIC_MAP.md](RUBRIC_MAP.md): where each grading criterion is satisfied.
 * [AI_DISCLOSURE.md](AI_DISCLOSURE.md): how AI was used in development.
-* [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md): what is left to do by hand.
 
-## Deploy to GitHub Pages
-
-The workflow in `.github/workflows/deploy.yml` runs the tests, builds, and publishes on every push to `main`.
-One-time setup: in the repository, **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-The site is then at `https://<user>.github.io/<repo>/`. The build uses relative asset paths (`base: './'`), so it works
-under any repository name.
 
 ## Scope and known limits
 
